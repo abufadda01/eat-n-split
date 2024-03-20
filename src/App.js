@@ -1,6 +1,18 @@
-import './App.css';
+import { useState } from 'react';
+import AddFriendForm from './components/AddFriendForm';
+import Button from './components/Button';
+import FriendList from './components/FriendList';
+import SplitBillForm from './components/SplitBillForm';
+
 
 function App() {
+
+  const [openAddFriendForm , setOpenAddFriendForm] = useState(false)
+
+  const handleFormOpen = () => {
+    setOpenAddFriendForm(prev => !prev)
+  }
+
 
   const initialFriends = [
     {
@@ -25,8 +37,19 @@ function App() {
 
 
   return (
-    <div className="App">
+    <div className="app">
 
+      <div className='sidebar'>
+      
+        <FriendList friends={initialFriends} />
+        {openAddFriendForm && <AddFriendForm />}
+
+        {/* send a fun as a props then set it as an event fun in the children component */}
+        <Button handleFormOpen={handleFormOpen}>{openAddFriendForm ? "Close" : "Add Friend"}</Button>
+      
+      </div>
+
+      <SplitBillForm/>
 
     </div>
   );
